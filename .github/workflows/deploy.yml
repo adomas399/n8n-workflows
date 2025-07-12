@@ -1,0 +1,33 @@
+name: Deploy n8n Workflows
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy each workflow in /output
+        run: |
+          for file in output/*.json; do
+            echo "📤 Deploying $file..."
+            curl -X POST "${{ secrets.N8N_URL }}/rest/workflows" \
+              -H "Authorization: Bearer ${{ secrets.N8N_API_KEY }}" \
+              -H "Content-Type: application/json" \
+              --data-binary "@$file"
+          done

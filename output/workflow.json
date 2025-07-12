@@ -1,0 +1,20 @@
+{
+  "name": "Auto-generated Hello Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { message: 'Hello from n8n!' } }];"
+      },
+      "id": "1",
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    }
+  ],
+  "connections": {},
+  "active": false
+}
