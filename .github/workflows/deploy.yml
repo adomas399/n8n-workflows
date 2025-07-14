@@ -26,8 +26,9 @@ jobs:
         run: |
           for file in output/*.json; do
             echo "📤 Deploying $file..."
-            curl -X POST "${{ secrets.N8N_URL }}/rest/workflows" \
-              -H "Authorization: Bearer ${{ secrets.N8N_API_KEY }}" \
+            curl -X POST "${{ secrets.N8N_URL }}/api/v1/workflows" \
+              -H "accept: application/json" \
               -H "Content-Type: application/json" \
+              -H "X-N8N-API-KEY: ${{ secrets.N8N_API_KEY }}" \
               --data-binary "@$file"
           done

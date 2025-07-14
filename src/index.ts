@@ -16,7 +16,8 @@ const workflow = {
     },
   ],
   connections: {},
-  active: false,
+  settings: {},
+  staticData: {},
 };
 
 // Ensure the output directory exists
