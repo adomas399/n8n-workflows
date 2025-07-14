@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 const workflow = {
-  name: "Auto-generated Hello Workflow",
+  name: "Workflow test",
   nodes: [
     {
       parameters: {
