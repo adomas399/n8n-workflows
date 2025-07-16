@@ -12,10 +12,12 @@ function main() {
     name: string;
     nodes: Record<string, any>[];
     connections: Record<string, any>;
+    settings: Record<string, any>;
   } = {
     name: "Workflow test",
     nodes: [],
     connections: {},
+    settings: {},
   };
 
   // Create Nodes
