@@ -22,6 +22,10 @@ jobs:
           npm ci
           npm run build
 
+      - name: Generate workflows from app
+        run: |
+          npm run start
+
       - name: Deploy each workflow in /output
         run: |
           for file in output/*.json; do
