@@ -75,9 +75,10 @@ export class ScheduleTrigger extends Node {
       id: config.id,
       name: config.name ?? `Schedule Trigger ${ScheduleTrigger.counter++}`,
       type: "n8n-nodes-base.scheduleTrigger",
-      version: config.version ?? 1.2,
+      version: config.version,
       parameters: { rule: { interval: normalizedRules } },
       connections: config.connections && { main: config.connections },
+      position: [0, 0],
     });
   }
 }

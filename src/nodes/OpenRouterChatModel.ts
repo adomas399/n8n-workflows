@@ -16,7 +16,7 @@ export class OpenRouterChatModel extends Node {
       name:
         config.name ?? `OpenRouter Chat Model ${OpenRouterChatModel.counter++}`,
       type: "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
-      version: config.version ?? 1,
+      version: config.version,
       parameters: { model: config.model },
       credentials: { openRouterApi: config.credentials },
       connections: config.connections && {

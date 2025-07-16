@@ -8,6 +8,7 @@ export abstract class Node {
   parameters: Record<string, any>;
   credentials?: Record<string, { id: string; name: string }>;
   connections?: Record<string, any>;
+  position?: [number, number];
 
   constructor(config: {
     id?: string;
@@ -17,6 +18,7 @@ export abstract class Node {
     parameters?: Record<string, any>;
     credentials?: Record<string, { id: string; name: string }>;
     connections?: Record<string, string[]>;
+    position?: [number, number];
   }) {
     this.id = config.id ?? uuidv4();
     this.name = config.name;
@@ -25,6 +27,7 @@ export abstract class Node {
     this.parameters = config.parameters ?? {};
     this.credentials = config.credentials;
     this.connections = config.connections;
+    this.position = config.position;
   }
 
   json(): Record<string, any> {
@@ -33,7 +36,7 @@ export abstract class Node {
       name: this.name,
       type: this.type,
       parameters: this.parameters,
-      position: [0, 0],
+      position: this.position,
       ...(this.version && { typeVersion: this.version }),
       ...(this.credentials && { credentials: this.credentials }),
     };
