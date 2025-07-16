@@ -33,6 +33,7 @@ export abstract class Node {
       name: this.name,
       type: this.type,
       parameters: this.parameters,
+      position: [0, 0],
       ...(this.version && { typeVersion: this.version }),
       ...(this.credentials && { credentials: this.credentials }),
     };

@@ -20,7 +20,7 @@ export class HTTPRequest extends Node {
       id: config.id,
       name: config.name ?? `HTTP Request ${HTTPRequest.counter++}`,
       type: "n8n-nodes-base.httpRequest",
-      version: config.version,
+      version: config.version ?? 4.2,
       parameters: {
         method: config.method,
         url: config.url,

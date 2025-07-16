@@ -16,7 +16,7 @@ export class MCPClient extends Node {
       id: config.id,
       name: config.name ?? `MCP Client ${MCPClient.counter++}`,
       type: "@n8n/n8n-nodes-langchain.mcpClientTool",
-      version: config.version,
+      version: config.version ?? 1,
       parameters: {
         sseEndpoint: config.sseEndpoint,
         include:
