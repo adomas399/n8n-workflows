@@ -9,6 +9,7 @@ export class AIAgent extends Node {
     version?: number;
     prompt: string;
     connections?: string[];
+    position?: [number, number];
   }) {
     super({
       id: config.id,
@@ -17,7 +18,7 @@ export class AIAgent extends Node {
       version: config.version,
       parameters: { promptType: "define", text: config.prompt },
       connections: config.connections && { main: config.connections },
-      position: [100, 0],
+      position: config.position,
     });
   }
 }

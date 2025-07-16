@@ -11,6 +11,7 @@ export class MCPClient extends Node {
     includeTools?: string[] | string;
     excludeTools?: string[] | string;
     connections: string[];
+    position?: [number, number];
   }) {
     super({
       id: config.id,
@@ -28,6 +29,7 @@ export class MCPClient extends Node {
       connections: config.connections && {
         ai_tool: config.connections,
       },
+      position: config.position,
     });
   }
 }

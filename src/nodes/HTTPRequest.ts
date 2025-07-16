@@ -15,6 +15,7 @@ export class HTTPRequest extends Node {
     credentialType?: string;
     credentials?: { id: string; name: string };
     connections?: string[];
+    position?: [number, number];
   }) {
     super({
       id: config.id,
@@ -43,6 +44,7 @@ export class HTTPRequest extends Node {
             } as Record<string, { id: string; name: string }>)
           : undefined,
       connections: config.connections && { main: config.connections },
+      position: config.position,
     });
   }
 }

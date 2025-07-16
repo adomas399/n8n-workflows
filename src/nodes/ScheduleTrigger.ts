@@ -62,6 +62,7 @@ export class ScheduleTrigger extends Node {
     version?: number;
     rules: ScheduleTriggerRule[];
     connections?: string[];
+    position?: [number, number];
   }) {
     const normalizedRules: Record<string, any> = config.rules.map((raw) => {
       const rule = normalizeScheduleRule(raw);
@@ -78,7 +79,7 @@ export class ScheduleTrigger extends Node {
       version: config.version,
       parameters: { rule: { interval: normalizedRules } },
       connections: config.connections && { main: config.connections },
-      position: [0, 0],
+      position: config.position,
     });
   }
 }

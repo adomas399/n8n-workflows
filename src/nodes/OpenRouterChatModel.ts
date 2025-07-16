@@ -10,6 +10,7 @@ export class OpenRouterChatModel extends Node {
     model: string;
     credentials: { id: string; name: string };
     connections: string[];
+    position?: [number, number];
   }) {
     super({
       id: config.id,
@@ -22,6 +23,7 @@ export class OpenRouterChatModel extends Node {
       connections: config.connections && {
         ai_languageModel: config.connections,
       },
+      position: config.position,
     });
   }
 }

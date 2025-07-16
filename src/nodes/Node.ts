@@ -27,7 +27,7 @@ export abstract class Node {
     this.parameters = config.parameters ?? {};
     this.credentials = config.credentials;
     this.connections = config.connections;
-    this.position = config.position;
+    this.position = config.position ?? [0, 0];
   }
 
   json(): Record<string, any> {
