@@ -16,7 +16,7 @@ export class AIAgent extends Node {
       name: config.name ?? `AI Agent ${AIAgent.counter++}`,
       type: "@n8n/n8n-nodes-langchain.agent",
       version: config.version,
-      parameters: { promptType: "define", text: config.prompt },
+      parameters: { promptType: "define", text: `=${config.prompt}` },
       connections: config.connections && { main: config.connections },
       position: config.position,
     });

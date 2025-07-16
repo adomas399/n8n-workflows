@@ -47,7 +47,6 @@ function budgetReviewWorkflow(
   });
   const mcpClient = new MCPClient({
     sseEndpoint: sseEndpoint,
-    includeTools: includedMcpTools,
     connections: ["AI Agent"],
   });
   const resendRequest = new HTTPRequest({

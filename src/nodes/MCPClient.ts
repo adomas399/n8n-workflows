@@ -8,8 +8,8 @@ export class MCPClient extends Node {
     name?: string;
     version?: number;
     sseEndpoint: string;
-    includeTools?: string[] | string;
-    excludeTools?: string[] | string;
+    includeTools?: string[];
+    excludeTools?: string[];
     connections: string[];
     position?: [number, number];
   }) {
