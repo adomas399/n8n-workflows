@@ -2,20 +2,156 @@
   "name": "Workflow test",
   "nodes": [
     {
+      "id": "21f26bff-7275-40a7-a22e-6881792f50b8",
+      "name": "Schedule Trigger 1",
+      "type": "n8n-nodes-base.scheduleTrigger",
       "parameters": {
-        "functionCode": "return [{ json: { message: 'Hello from n8n!' } }];"
+        "rule": {
+          "interval": [
+            {
+              "field": "Weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                0
+              ],
+              "triggerAtHour": 21
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "9d159be4-05c4-4d92-bfcd-0d4b500ab2a4",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "parameters": {
+        "promptType": "define",
+        "text": "do smth"
+      }
+    },
+    {
+      "id": "c51d7710-2eae-4064-8587-a67fd91a9f1f",
+      "name": "OpenRouter Chat Model 1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "parameters": {
+        "model": "anthropic/claude-3.7-sonnet"
       },
-      "id": "1",
-      "name": "Function",
-      "type": "n8n-nodes-base.function",
-      "typeVersion": 1,
-      "position": [
-        250,
-        300
-      ]
+      "credentials": {
+        "openRouterApi": {
+          "id": "nN8UkME96wTEJUsX",
+          "name": "OpenRouter my"
+        }
+      }
+    },
+    {
+      "id": "20619acd-42d3-4ab5-9e50-7315fdb4deac",
+      "name": "MCP Client 1",
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "parameters": {
+        "sseEndpoint": "https://duck-fleet-sturgeon.ngrok-free.app/sse",
+        "include": "selected",
+        "includeTools": [
+          "get-accounts",
+          "spending-by-category",
+          "balance-history",
+          "monthly-summary"
+        ]
+      }
+    },
+    {
+      "id": "c08b97ab-da3f-4660-8174-960a89494272",
+      "name": "Resend",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/emails",
+        "authentication": "genericCredentialType",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "from",
+              "value": "onboarding@resend.dev"
+            },
+            {
+              "name": "to",
+              "value": "adomas.reginis@gmail.com"
+            },
+            {
+              "name": "subject",
+              "value": "Weekly Budget Report"
+            },
+            {
+              "name": "html",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "nodeCredentialType": false,
+        "genericAuthType": "httpBearerAuth"
+      },
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "GyoOmDhEai7HY25I",
+          "name": "Resend my"
+        }
+      }
     }
   ],
-  "connections": {},
-  "settings": {},
-  "staticData": {}
+  "connections": {
+    "Schedule Trigger 1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Resend",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model 1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MCP Client 1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resend": {}
+  }
 }
