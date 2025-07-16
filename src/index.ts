@@ -80,11 +80,12 @@ function budgetReviewWorkflow(
   console.log("✅ Workflow JSON generated at:", outputPath);
 }
 
-const workflowName = "Workflow test";
-const prompt = fs.readFileSync(
+const workflowName = "Workflow test 4";
+let prompt = fs.readFileSync(
   path.join(__dirname, "..", "input", "budgetReviewPrompt.txt"),
   "utf-8"
 );
+prompt = "";
 const scheduleRules = [
   {
     weeksInterval: 1,

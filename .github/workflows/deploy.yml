@@ -22,7 +22,7 @@ jobs:
           npm ci
           npm run build
 
-      - name: Generate workflows from app
+      - name: Generate workflows
         run: |
           npm run start
 
