@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
-import { ScheduleTrigger } from "./nodes/Schedule-Trigger";
-import { AIAgent } from "./nodes/AI-Agent";
-import { OpenRouterChatModel } from "./nodes/OpenRouter-chat-model";
-import { MCPClient } from "./nodes/MCP-client";
-import { HTTPRequest } from "./nodes/HTTP-request";
+import { ScheduleTrigger } from "./nodes/ScheduleTrigger";
+import { AIAgent } from "./nodes/AIAgent";
+import { OpenRouterChatModel } from "./nodes/OpenRouterChatModel";
+import { MCPClient } from "./nodes/MCPClient";
+import { HTTPRequest } from "./nodes/HTTPRequest";
 
 function main() {
   // Create workflow json object

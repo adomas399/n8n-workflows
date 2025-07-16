@@ -1,4 +1,4 @@
-import { Node } from "./node";
+import { Node } from "./Node";
 
 export class AIAgent extends Node {
   private static counter = 1;

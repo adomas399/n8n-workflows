@@ -1,5 +1,5 @@
 import { isStringArray, parseWeekdays } from "../utils";
-import { Node } from "./node";
+import { Node } from "./Node";
 
 const normalizeScheduleRule = (
   raw: Record<string, any>
