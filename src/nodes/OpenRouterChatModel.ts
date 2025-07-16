@@ -18,7 +18,7 @@ export class OpenRouterChatModel extends Node {
         config.name ?? `OpenRouter Chat Model ${OpenRouterChatModel.counter++}`,
       type: "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       version: config.version,
-      parameters: { model: config.model },
+      parameters: { model: `=${config.model}` },
       credentials: { openRouterApi: config.credentials },
       connections: config.connections && {
         ai_languageModel: config.connections,
