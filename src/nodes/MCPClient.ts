@@ -18,14 +18,7 @@ export class MCPClient extends Node {
       name: config.name ?? `MCP Client ${MCPClient.counter++}`,
       type: "@n8n/n8n-nodes-langchain.mcpClientTool",
       version: config.version,
-      parameters: {
-        sseEndpoint: config.sseEndpoint,
-        include:
-          (config.includeTools && "selected") ||
-          (config.excludeTools && "except"),
-        includeTools: config.includeTools,
-        excludeTools: config.excludeTools,
-      },
+      parameters: { options: {} },
       connections: config.connections && {
         ai_tool: config.connections,
       },

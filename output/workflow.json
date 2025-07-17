@@ -1,5 +1,5 @@
 {
-  "name": "Workflow test 4",
+  "name": "Workflow test 5",
   "nodes": [
     {
       "id": "da6b7a42-daad-47ea-b7e6-7d282e4c3fe3",
@@ -11,18 +11,13 @@
             {
               "field": "Weeks",
               "weeksInterval": 1,
-              "triggerAtDay": [
-                0
-              ],
+              "triggerAtDay": [0],
               "triggerAtHour": 21
             }
           ]
         }
       },
-      "position": [
-        0,
-        0
-      ]
+      "position": [0, 0]
     },
     {
       "id": "dcbed164-d82e-45ed-8d81-d8ae7984110c",
@@ -32,10 +27,7 @@
         "promptType": "define",
         "text": "="
       },
-      "position": [
-        0,
-        0
-      ]
+      "position": [0, 0]
     },
     {
       "id": "fd71bae9-aa5a-4e08-8e18-60a4e95691fa",
@@ -44,10 +36,7 @@
       "parameters": {
         "model": "=anthropic/claude-3.7-sonnet"
       },
-      "position": [
-        0,
-        0
-      ],
+      "position": [0, 0],
       "credentials": {
         "openRouterApi": {
           "id": "nN8UkME96wTEJUsX",
@@ -56,16 +45,21 @@
       }
     },
     {
-      "id": "cc1e5484-70a6-4946-b278-4dbab63cb608",
-      "name": "MCP Client 1",
-      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
       "parameters": {
-        "sseEndpoint": "https://duck-fleet-sturgeon.ngrok-free.app/sse"
+        "sseEndpoint": "https://duck-fleet-sturgeon.ngrok-free.app/sse",
+        "include": "selected",
+        "includeTools": [
+          "get-accounts",
+          "spending-by-category",
+          "balance-history",
+          "monthly-summary"
+        ]
       },
-      "position": [
-        0,
-        0
-      ]
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [64, 224],
+      "id": "17f8db3c-4595-407a-9577-95cdccde094c",
+      "name": "MCP Client"
     },
     {
       "id": "6a2a6e1c-6759-4f44-8d12-b9f9b06af570",
@@ -108,10 +102,7 @@
         "nodeCredentialType": false,
         "genericAuthType": "httpBearerAuth"
       },
-      "position": [
-        0,
-        0
-      ],
+      "position": [0, 0],
       "credentials": {
         "httpBearerAuth": {
           "id": "GyoOmDhEai7HY25I",
