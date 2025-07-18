@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from "uuid";
+import { N8NCredential } from "../types";
 
-export abstract class Node {
+export default abstract class N8Node {
   id: string;
   name: string;
   type: string;
-  version?: number;
+  version: number;
   parameters: Record<string, any>;
-  credentials?: Record<string, { id: string; name: string }>;
+  credentials?: Record<string, N8NCredential>;
   connections?: Record<string, any>;
   position?: [number, number];
 
@@ -14,9 +15,9 @@ export abstract class Node {
     id?: string;
     name: string;
     type: string;
-    version?: number;
+    version: number;
     parameters?: Record<string, any>;
-    credentials?: Record<string, { id: string; name: string }>;
+    credentials?: Record<string, N8NCredential>;
     connections?: Record<string, string[]>;
     position?: [number, number];
   }) {
@@ -57,13 +58,5 @@ export abstract class Node {
         ],
       ])
     );
-  }
-
-  pushTo(workflow: {
-    nodes: Record<string, any>[];
-    connections: Record<string, any>;
-  }) {
-    workflow.nodes.push(this.json());
-    workflow.connections[this.name] = this.connectionJson();
   }
 }

@@ -29,7 +29,6 @@ You are a FIRE (Financial Independence, Retire Early) progress analyzer. Generat
 - Style using Bootstrap 5 with card components, using success (green), warning (yellow), and danger (red) contextual colors for the different FIRE categories.
 - No DOCTYPE, comments, or text outside HTML tags
 - Start directly with HTML content
-- **Do not include any line breaks or escape sequences in the output**
 
 ## Tone Requirements:
 - Use actual data points in analysis

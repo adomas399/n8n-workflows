@@ -1,5 +1,5 @@
 import { isStringArray, parseWeekdays } from "../utils";
-import { Node } from "./Node";
+import N8Node from "./Node";
 
 const normalizeScheduleRule = (
   raw: Record<string, any>
@@ -53,7 +53,7 @@ export type ScheduleTriggerRule =
   | WeeksInterval
   | MonthsInterval;
 
-export class ScheduleTrigger extends Node {
+export default class ScheduleTrigger extends N8Node {
   private static counter = 1;
 
   constructor(config: {
@@ -74,9 +74,13 @@ export class ScheduleTrigger extends Node {
 
     super({
       id: config.id,
-      name: config.name ?? `Schedule Trigger ${ScheduleTrigger.counter++}`,
+      name:
+        config.name ??
+        `Schedule Trigger${
+          ScheduleTrigger.counter++ > 0 && " " + ScheduleTrigger.counter
+        }`,
       type: "n8n-nodes-base.scheduleTrigger",
-      version: config.version,
+      version: config.version ?? 1.2,
       parameters: { rule: { interval: normalizedRules } },
       connections: config.connections && { main: config.connections },
       position: config.position,

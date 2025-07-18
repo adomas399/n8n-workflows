@@ -1,7 +1,8 @@
-import { Node } from "./Node";
+import { N8NCredential } from "../types";
+import N8Node from "./Node";
 
-export class HTTPRequest extends Node {
-  private static counter = 1;
+export default class HTTPRequest extends N8Node {
+  protected static counter = 1;
 
   constructor(config: {
     id?: string;
@@ -13,7 +14,7 @@ export class HTTPRequest extends Node {
     bodyParameters?: { name: string; value: string }[];
     authentication?: "predefinedCredentialType" | "genericCredentialType";
     credentialType?: string;
-    credentials?: { id: string; name: string };
+    credential?: N8NCredential;
     connections?: string[];
     position?: [number, number];
   }) {
@@ -21,7 +22,7 @@ export class HTTPRequest extends Node {
       id: config.id,
       name: config.name ?? `HTTP Request ${HTTPRequest.counter++}`,
       type: "n8n-nodes-base.httpRequest",
-      version: config.version,
+      version: config.version ?? 4.2,
       parameters: {
         method: config.method,
         url: config.url,
@@ -38,10 +39,10 @@ export class HTTPRequest extends Node {
           config.credentialType,
       },
       credentials:
-        config.credentialType && config.credentials
+        config.credentialType && config.credential
           ? ({
-              [config.credentialType]: config.credentials,
-            } as Record<string, { id: string; name: string }>)
+              [config.credentialType]: config.credential,
+            } as Record<string, N8NCredential>)
           : undefined,
       connections: config.connections && { main: config.connections },
       position: config.position,

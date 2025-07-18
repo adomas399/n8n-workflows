@@ -1,7 +1,7 @@
-import { Node } from "./Node";
+import N8Node from "./Node";
 
-export class AIAgent extends Node {
-  private static counter = 1;
+export default class AIAgent extends N8Node {
+  protected static counter = 1;
 
   constructor(config: {
     id?: string;
@@ -13,9 +13,11 @@ export class AIAgent extends Node {
   }) {
     super({
       id: config.id,
-      name: config.name ?? `AI Agent ${AIAgent.counter++}`,
+      name:
+        config.name ??
+        `AI Agent${AIAgent.counter++ > 0 && " " + AIAgent.counter}`,
       type: "@n8n/n8n-nodes-langchain.agent",
-      version: config.version,
+      version: config.version ?? 2,
       parameters: { promptType: "define", text: `=${config.prompt}` },
       connections: config.connections && { main: config.connections },
       position: config.position,
