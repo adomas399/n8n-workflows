@@ -45,396 +45,316 @@ Use this example html file to base your report on, follow its style and structur
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.5;
-  color: #212529;
+  font-family: Arial, sans-serif;
+  color: #333;
   margin: 0;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: #f5f5f5;
 }
 .container {
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  overflow: hidden;
+  background-color: white;
+  padding: 20px;
 }
 .header {
-  background-color: #343a40;
+  background-color: #333;
   color: white;
   padding: 20px;
   text-align: center;
+  margin: -20px -20px 20px -20px;
 }
 .section {
-  padding: 20px;
-  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
 }
-.card {
-  border: 1px solid rgba(0,0,0,.125);
-  border-radius: 0.25rem;
-  margin-bottom: 20px;
+.score {
+  text-align: center;
+  margin: 20px 0;
 }
-.card-header {
-  padding: 0.75rem 1.25rem;
-  background-color: rgba(0,0,0,.03);
-  border-bottom: 1px solid rgba(0,0,0,.125);
+.score-number {
+  font-size: 48px;
   font-weight: bold;
-}
-.card-body {
-  padding: 1.25rem;
-}
-.progress {
-  height: 20px;
-  background-color: #e9ecef;
-  border-radius: 0.25rem;
-  margin-bottom: 1rem;
-  display: flex;
-  overflow: hidden;
-}
-.progress-bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #fff;
-  text-align: center;
-  white-space: nowrap;
-  transition: width 0.6s ease;
-}
-.progress-bar-success {
-  background-color: #28a745;
-}
-.progress-bar-warning {
-  background-color: #ffc107;
-}
-.progress-bar-danger {
-  background-color: #dc3545;
-}
-.badge {
-  display: inline-block;
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: 0.25rem;
-  margin-left: 5px;
-}
-.badge-success {
-  background-color: #28a745;
-  color: white;
-}
-.badge-warning {
-  background-color: #ffc107;
-  color: #212529;
-}
-.badge-danger {
-  background-color: #dc3545;
-  color: white;
-}
-.table {
-  width: 100%;
-  margin-bottom: 1rem;
-  color: #212529;
-  border-collapse: collapse;
-}
-.table th, .table td {
-  padding: 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-  text-align: left;
-}
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
-}
-.score-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.score-circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background-color: #f8f9fa;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  font-weight: bold;
-  border: 5px solid;
-}
-.score-8 {
-  border-color: #28a745;
   color: #28a745;
+  border: 3px solid #28a745;
+  width: 80px;
+  height: 80px;
+  line-height: 74px;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
 }
 .alert {
-  position: relative;
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
+  padding: 15px;
+  margin: 15px 0;
+  border-left: 4px solid #28a745;
+  background-color: #f0f8f0;
 }
 .alert-warning {
-  color: #856404;
-  background-color: #fff3cd;
-  border-color: #ffeeba;
+  border-left-color: #ffc107;
+  background-color: #fff8e1;
 }
-.alert-success {
-  color: #155724;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+.positive {
+  color: #28a745;
+}
+.negative {
+  color: #dc3545;
+}
+.category-green {
   background-color: #d4edda;
-  border-color: #c3e6cb;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 12px;
 }
-.text-success { color: #28a745; }
-.text-danger { color: #dc3545; }
-.text-warning { color: #ffc107; }
+.category-yellow {
+  background-color: #fff3cd;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.category-red {
+  background-color: #f8d7da;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.bar {
+  height: 20px;
+  background-color: #e9ecef;
+  margin: 10px 0;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  background-color: #28a745;
+}
+.bar-fill-yellow {
+  background-color: #ffc107;
+}
+.bar-fill-red {
+  background-color: #dc3545;
+}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
     <h1>Weekly FIRE Progress Report</h1>
-    <p>July 8 - July 15, 2025</p>
+    <p>July 19 - July 26, 2025</p>
   </div>
   
   <div class="section">
-    <div class="score-container">
-      <div class="score-circle score-8">8</div>
+    <div class="score">
+      <div class="score-number">8</div>
       <h2>Your FIRE Progress Score</h2>
     </div>
     
-    <div class="alert alert-success">
-      <strong>Positive Trend:</strong> Your savings rate of 37.6% this month shows good progress toward financial independence.
+    <div class="alert">
+      <strong>Positive Trend:</strong> Your savings rate of 62% this month shows excellent progress toward financial independence.
     </div>
     
-    <p>Based on your actual spending and savings behaviors this week, you're making solid progress toward your FIRE goals. Your high historical savings rate demonstrates financial discipline, though there's a concerning downward trend in your savings rate from previous months.</p>
+    <p>Based on your actual spending and savings behaviors this week, you're making solid progress toward your FIRE goals. Your high savings rate demonstrates strong financial discipline.</p>
   </div>
   
   <div class="section">
     <h2>Net Worth Snapshot</h2>
     
-    <div class="card">
-      <div class="card-header">Current Net Worth: $62,356.41</div>
-      <div class="card-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Account</th>
-              <th>Balance</th>
-              <th>Monthly Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Bank of America</td>
-              <td>$4,564.93</td>
-              <td><span class="text-success">↑ $4,884.82</span></td>
-            </tr>
-            <tr>
-              <td>Ally Savings</td>
-              <td>$3,770.71</td>
-              <td><span class="text-success">↑ $334.84</span></td>
-            </tr>
-            <tr>
-              <td>Capital One Checking</td>
-              <td>$1,089.81</td>
-              <td><span class="text-success">↑ $193.20</span></td>
-            </tr>
-            <tr>
-              <td>HSBC</td>
-              <td>$1,277.55</td>
-              <td><span class="text-success">↑ $624.43</span></td>
-            </tr>
-            <tr>
-              <td>Vanguard 401k</td>
-              <td>$1,632.24</td>
-              <td>$0.00</td>
-            </tr>
-            <tr>
-              <td>Roth IRA</td>
-              <td>$3,094.30</td>
-              <td><span class="text-success">↑ $443.13</span></td>
-            </tr>
-            <tr>
-              <td>House Asset</td>
-              <td>$356,700.00</td>
-              <td><span class="text-success">↑ $900.00</span></td>
-            </tr>
-            <tr>
-              <td>Mortgage</td>
-              <td>-$309,773.13</td>
-              <td><span class="text-success">↑ $1,447.43</span></td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <div class="alert alert-warning">
-          <strong>Savings Rate Trend:</strong> Your savings rate has declined from 86.9% in May to 37.6% in July.
-        </div>
-      </div>
+    <p><strong>Current Net Worth: $62,356.41</strong></p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Account</th>
+          <th>Balance</th>
+          <th>Monthly Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bank of America</td>
+          <td>$4,564.93</td>
+          <td class="positive">+$4,884.82</td>
+        </tr>
+        <tr>
+          <td>Ally Savings</td>
+          <td>$3,770.71</td>
+          <td class="positive">+$334.84</td>
+        </tr>
+        <tr>
+          <td>Capital One Checking</td>
+          <td>$1,089.81</td>
+          <td class="positive">+$193.20</td>
+        </tr>
+        <tr>
+          <td>HSBC</td>
+          <td>$1,277.55</td>
+          <td class="positive">+$624.43</td>
+        </tr>
+        <tr>
+          <td>Vanguard 401k</td>
+          <td>$1,632.24</td>
+          <td>$0.00</td>
+        </tr>
+        <tr>
+          <td>Roth IRA</td>
+          <td>$3,094.30</td>
+          <td class="positive">+$443.13</td>
+        </tr>
+        <tr>
+          <td>House Asset</td>
+          <td>$356,700.00</td>
+          <td class="positive">+$900.00</td>
+        </tr>
+        <tr>
+          <td>Mortgage</td>
+          <td>-$309,773.13</td>
+          <td class="positive">+$1,447.43</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="alert alert-warning">
+      <strong>Savings Rate Trend:</strong> Your savings rate has declined from 86.9% in May to 62% in July but remains strong.
     </div>
     
-    <p><strong>FIRE Timeline Impact:</strong> Based on your current average savings rate of 60.5% and assuming a 4% withdrawal rate, you're on track for financial independence in approximately 12 years. However, if the July trend (37.6%) continues, this timeline would extend to about 22 years.</p>
+    <p><strong>FIRE Timeline:</strong> Based on your current savings rate of 62% and assuming a 4% withdrawal rate, you're on track for financial independence in approximately 10-12 years.</p>
   </div>
   
   <div class="section">
     <h2>Weekly Spending Analysis</h2>
     
-    <div class="card">
-      <div class="card-header">Total Spending: $531.42</div>
-      <div class="card-body">
-        <h4>FIRE Category Breakdown</h4>
-        
-        <div class="progress">
-          <div class="progress-bar progress-bar-success" style="width: 0%;" title="Wealth Building">0%</div>
-          <div class="progress-bar progress-bar-warning" style="width: 58.5%;" title="Essential">58.5%</div>
-          <div class="progress-bar progress-bar-danger" style="width: 41.5%;" title="Discretionary">41.5%</div>
-        </div>
-        
-        <table class="table">
-          <thead>
-            <tr>
-              <th>FIRE Category</th>
-              <th>Amount</th>
-              <th>Percentage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Wealth Building <span class="badge badge-success">GREEN</span></td>
-              <td>$0.00</td>
-              <td>0%</td>
-            </tr>
-            <tr>
-              <td>Essential <span class="badge badge-warning">YELLOW</span></td>
-              <td>$310.55</td>
-              <td>58.5%</td>
-            </tr>
-            <tr>
-              <td>Discretionary <span class="badge badge-danger">RED</span></td>
-              <td>$220.87</td>
-              <td>41.5%</td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <h4>Detailed Spending</h4>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Transactions</th>
-              <th>FIRE Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Entertainment</td>
-              <td>$107.30</td>
-              <td>5</td>
-              <td><span class="badge badge-danger">Discretionary</span></td>
-            </tr>
-            <tr>
-              <td>General</td>
-              <td>$101.02</td>
-              <td>4</td>
-              <td><span class="badge badge-danger">Discretionary</span></td>
-            </tr>
-            <tr>
-              <td>Clothing</td>
-              <td>$100.51</td>
-              <td>5</td>
-              <td><span class="badge badge-warning">Essential</span></td>
-            </tr>
-            <tr>
-              <td>Food</td>
-              <td>$100.23</td>
-              <td>2</td>
-              <td><span class="badge badge-warning">Essential</span></td>
-            </tr>
-            <tr>
-              <td>Power</td>
-              <td>$100.00</td>
-              <td>1</td>
-              <td><span class="badge badge-warning">Essential</span></td>
-            </tr>
-            <tr>
-              <td>Restaurants</td>
-              <td>$13.05</td>
-              <td>5</td>
-              <td><span class="badge badge-danger">Discretionary</span></td>
-            </tr>
-            <tr>
-              <td>Medical</td>
-              <td>$6.32</td>
-              <td>1</td>
-              <td><span class="badge badge-warning">Essential</span></td>
-            </tr>
-            <tr>
-              <td>Gift</td>
-              <td>$2.99</td>
-              <td>1</td>
-              <td><span class="badge badge-danger">Discretionary</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <p><strong>Total Spending: $531.42</strong></p>
+    
+    <h4>FIRE Category Breakdown</h4>
+    <table>
+      <tr>
+        <td>Wealth Building <span class="category-green">GREEN</span></td>
+        <td>$0.00</td>
+        <td>0%</td>
+      </tr>
+      <tr>
+        <td>Essential <span class="category-yellow">YELLOW</span></td>
+        <td>$310.55</td>
+        <td>58.5%</td>
+      </tr>
+      <tr>
+        <td>Discretionary <span class="category-red">RED</span></td>
+        <td>$220.87</td>
+        <td>41.5%</td>
+      </tr>
+    </table>
+    
+    <h4>Detailed Spending</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Transactions</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Entertainment</td>
+          <td>$107.30</td>
+          <td>5</td>
+          <td><span class="category-red">Discretionary</span></td>
+        </tr>
+        <tr>
+          <td>General</td>
+          <td>$101.02</td>
+          <td>4</td>
+          <td><span class="category-red">Discretionary</span></td>
+        </tr>
+        <tr>
+          <td>Clothing</td>
+          <td>$100.51</td>
+          <td>5</td>
+          <td><span class="category-yellow">Essential</span></td>
+        </tr>
+        <tr>
+          <td>Food</td>
+          <td>$100.23</td>
+          <td>2</td>
+          <td><span class="category-yellow">Essential</span></td>
+        </tr>
+        <tr>
+          <td>Power</td>
+          <td>$100.00</td>
+          <td>1</td>
+          <td><span class="category-yellow">Essential</span></td>
+        </tr>
+        <tr>
+          <td>Restaurants</td>
+          <td>$13.05</td>
+          <td>5</td>
+          <td><span class="category-red">Discretionary</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   
   <div class="section">
-    <h2>Analysis & Recommendations</h2>
+    <h2>Analysis &amp; Recommendations</h2>
     
-    <div class="card">
-      <div class="card-header">Key Insights</div>
-      <div class="card-body">
-        <ul>
-          <li><strong>Discretionary Spending Alert:</strong> At 41.5% of your total expenses, your discretionary spending is significantly above the recommended 15% threshold for optimal FIRE progress.</li>
-          <li><strong>No Wealth Building:</strong> You had no wealth building transactions this week, which slows progress toward financial independence.</li>
-          <li><strong>Entertainment Habits:</strong> You had 5 entertainment transactions totaling $107.30, making this your largest discretionary spending category.</li>
-          <li><strong>Frequent Small Purchases:</strong> You made 5 restaurant transactions but only spent $13.05 total, showing good control in this area.</li>
-        </ul>
-        
-        <h4>Specific Recommendations</h4>
-        <ol>
-          <li>Reduce entertainment spending by at least 50% next week to bring discretionary expenses closer to the 15% target.</li>
-          <li>Review the 4 "General" category transactions totaling $101.02 to identify potential unnecessary expenses.</li>
-          <li>Consider if the 5 clothing transactions ($100.51) were all essential or if some could be classified as discretionary shopping.</li>
-          <li>Increase contributions to your investment accounts, as there were no investment transactions recorded this period.</li>
-          <li>Maintain your positive housing equity growth trend ($900 monthly increase in house value while reducing mortgage by $1,447.43).</li>
-        </ol>
-      </div>
-    </div>
+    <h4>Key Insights</h4>
+    <ul>
+      <li><strong>Discretionary Spending Alert:</strong> At 41.5% of your total expenses, your discretionary spending is above the recommended 15% threshold.</li>
+      <li><strong>No Wealth Building:</strong> You had no wealth building transactions this week.</li>
+      <li><strong>Entertainment Habits:</strong> Entertainment was your largest discretionary category at $107.30.</li>
+      <li><strong>Good Restaurant Control:</strong> Only $13.05 spent on restaurants across 5 transactions shows discipline.</li>
+    </ul>
+    
+    <h4>Recommendations</h4>
+    <ol>
+      <li>Reduce entertainment spending by 50% next week to bring discretionary expenses closer to 15%.</li>
+      <li>Review the "General" category transactions ($101.02) to identify unnecessary expenses.</li>
+      <li>Set up automated transfers to investment accounts.</li>
+      <li>Continue positive housing equity growth trend.</li>
+    </ol>
   </div>
   
   <div class="section">
     <h2>Monthly Savings Rate Trend</h2>
     
-    <div class="card">
-      <div class="card-body">
-        <div class="progress" style="height: 30px; margin-bottom: 10px;">
-          <div class="progress-bar progress-bar-success" style="width: 86.9%;" title="May 2025">May: 86.9%</div>
-        </div>
-        <div class="progress" style="height: 30px; margin-bottom: 10px;">
-          <div class="progress-bar progress-bar-success" style="width: 62.8%;" title="June 2025">June: 62.8%</div>
-        </div>
-        <div class="progress" style="height: 30px; margin-bottom: 10px;">
-          <div class="progress-bar progress-bar-warning" style="width: 37.6%;" title="July 2025">July: 37.6%</div>
-        </div>
-        
-        <p>Your overall average savings rate of 60.5% is excellent for FIRE purposes, but the downward trend requires attention. If you can maintain a savings rate above 50%, you'll stay on track for your financial independence goals.</p>
-      </div>
+    <p><strong>May 2025:</strong> 86.9%</p>
+    <div class="bar">
+      <div class="bar-fill" style="width: 86.9%;"></div>
     </div>
+    
+    <p><strong>June 2025:</strong> 74.2%</p>
+    <div class="bar">
+      <div class="bar-fill" style="width: 74.2%;"></div>
+    </div>
+    
+    <p><strong>July 2025:</strong> 62.0%</p>
+    <div class="bar">
+      <div class="bar-fill bar-fill-yellow" style="width: 62.0%;"></div>
+    </div>
+    
+    <p>Your overall average savings rate of 74% is excellent for FIRE purposes. The downward trend requires attention, but you're still well above the 50% threshold needed for aggressive FIRE progress.</p>
   </div>
   
   <div class="section" style="border-bottom: none;">
     <h3>Next Steps</h3>
-    <p>Focus on reducing discretionary spending to under 15% of total expenses while maintaining your essential expenses under 50%. Consider setting up automated transfers to your investment accounts to increase wealth building allocation.</p>
+    <p>Focus on reducing discretionary spending to under 15% of total expenses. Set up automated transfers to investment accounts to ensure consistent wealth building.</p>
     
-    <p>Your FIRE journey is making good progress despite the recent trend. With some adjustments to your spending habits, you can get back on the accelerated path to financial independence.</p>
+    <p>Your FIRE journey is making excellent progress. With some adjustments to discretionary spending, you can optimize your path to financial independence.</p>
   </div>
 </div>
 </body>
