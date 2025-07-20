@@ -45,7 +45,7 @@ function budgetReview() {
   // Load the prompt variable from /input/budgetReviewPrompt.txt
   const prompt = loadFile("budgetReviewPrompt.txt");
 
-  // Initialize a Schedule Trigger Node
+  // Define the Schedule Trigger Rules
   const scheduleTriggerRules: ScheduleTriggerRule[] = [
     {
       weeksInterval: 1,
