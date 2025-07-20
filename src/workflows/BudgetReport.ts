@@ -23,9 +23,7 @@ export default class BudgetReport extends Workflow {
     mailSubject?: string;
     resendCredential: N8NCredential;
   }) {
-    super({
-      name: config.name ?? "Budget Report",
-    });
+    super(config.name ?? "Budget Report");
 
     this.addNode(
       new ScheduleTrigger({

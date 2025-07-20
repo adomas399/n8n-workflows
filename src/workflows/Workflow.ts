@@ -1,19 +1,19 @@
 import WorkflowNode from "../nodes/WorkflowNode";
 import { WorkflowJSON } from "../types";
 
-export default abstract class Workflow {
+export default class Workflow {
   name: string;
   nodes: WorkflowNode[];
   settings: Record<string, any>;
 
-  constructor(config: {
-    name: string;
-    nodes?: WorkflowNode[];
-    settings?: Record<string, any>;
-  }) {
-    this.name = config.name;
-    this.nodes = config.nodes ?? [];
-    this.settings = config.settings ?? {};
+  constructor(
+    name: string,
+    nodes: WorkflowNode[] = [],
+    settings: Record<string, any> = {}
+  ) {
+    this.name = name;
+    this.nodes = nodes;
+    this.settings = settings;
   }
 
   addNode(node: WorkflowNode) {

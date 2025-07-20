@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { N8NCredential } from "../types";
 
-export default abstract class WorkflowNode {
+export default class WorkflowNode {
   id: string;
   name: string;
   type: string;
