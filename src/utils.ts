@@ -37,12 +37,14 @@ export function loadFile(filename: string): string {
 }
 
 export function saveFile(workflow: WorkflowJSON, filename?: string) {
-  const outputPath = path.join(
-    __dirname,
-    "..",
-    "output",
-    filename ?? `${workflow.name}.json`
-  );
+  const outputDir = path.join(__dirname, "..", "output");
+  const outputPath = path.join(outputDir, filename ?? `${workflow.name}.json`);
+
+  // Ensure output directory exists
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
   fs.writeFileSync(outputPath, JSON.stringify(workflow));
-  console.log(`Saved workflow ${workflow.name} to ${outputPath}`);
+  console.log(`✅ Saved workflow "${workflow.name}" to ${outputPath}`);
 }
