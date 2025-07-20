@@ -2,7 +2,7 @@ import { N8NCredential } from "../types";
 import HTTPRequest from "./HTTPRequest";
 
 export default class Resend extends HTTPRequest {
-  protected static counter = 1;
+  protected static counter = 0;
 
   constructor(config: {
     id?: string;
@@ -19,7 +19,8 @@ export default class Resend extends HTTPRequest {
     super({
       id: config.id,
       name:
-        config.name ?? `Resend${Resend.counter++ > 0 && " " + Resend.counter}`,
+        config.name ??
+        `Resend${Resend.counter++ > 0 ? " " + Resend.counter : ""}`,
       version: 4.2,
       method: "POST",
       url: "https://api.resend.com/emails",

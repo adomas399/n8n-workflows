@@ -1,8 +1,8 @@
 import { N8NCredential } from "../types";
-import N8Node from "./Node";
+import WorkflowNode from "./WorkflowNode";
 
-export default class HTTPRequest extends N8Node {
-  protected static counter = 1;
+export default class HTTPRequest extends WorkflowNode {
+  protected static counter = 0;
 
   constructor(config: {
     id?: string;
@@ -20,7 +20,11 @@ export default class HTTPRequest extends N8Node {
   }) {
     super({
       id: config.id,
-      name: config.name ?? `HTTP Request ${HTTPRequest.counter++}`,
+      name:
+        config.name ??
+        `HTTP Request${
+          HTTPRequest.counter++ > 0 ? " " + HTTPRequest.counter : ""
+        }`,
       type: "n8n-nodes-base.httpRequest",
       version: config.version ?? 4.2,
       parameters: {

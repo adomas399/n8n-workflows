@@ -1,8 +1,8 @@
 import { N8NCredential } from "../types";
-import N8Node from "./Node";
+import WorkflowNode from "./WorkflowNode";
 
-export default class MCPClient extends N8Node {
-  protected static counter = 1;
+export default class MCPClient extends WorkflowNode {
+  protected static counter = 0;
 
   constructor(config: {
     id?: string;
@@ -20,7 +20,7 @@ export default class MCPClient extends N8Node {
       id: config.id,
       name:
         config.name ??
-        `MCP Client${MCPClient.counter++ > 0 && " " + MCPClient.counter}`,
+        `MCP Client${MCPClient.counter++ > 0 ? " " + MCPClient.counter : ""}`,
       type: "@n8n/n8n-nodes-langchain.mcpClientTool",
       version: config.version ?? 1,
       parameters: {
@@ -37,10 +37,10 @@ export default class MCPClient extends N8Node {
         (config.authentication == "headerAuth"
           ? ({
               httpHeaderAuth: config.credential,
-            } as Record<string, { id: string; name: string }>)
+            } as Record<string, N8NCredential>)
           : ({
               httpBearerAuth: config.credential,
-            } as Record<string, { id: string; name: string }>)),
+            } as Record<string, N8NCredential>)),
       connections: config.connections && {
         ai_tool: config.connections,
       },

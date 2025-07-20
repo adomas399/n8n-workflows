@@ -1,7 +1,7 @@
-import N8Node from "./Node";
+import WorkflowNode from "./WorkflowNode";
 
-export default class AIAgent extends N8Node {
-  protected static counter = 1;
+export default class AIAgent extends WorkflowNode {
+  protected static counter = 0;
 
   constructor(config: {
     id?: string;
@@ -15,7 +15,7 @@ export default class AIAgent extends N8Node {
       id: config.id,
       name:
         config.name ??
-        `AI Agent${AIAgent.counter++ > 0 && " " + AIAgent.counter}`,
+        `AI Agent${AIAgent.counter++ > 0 ? " " + AIAgent.counter : ""}`,
       type: "@n8n/n8n-nodes-langchain.agent",
       version: config.version ?? 2,
       parameters: { promptType: "define", text: `=${config.prompt}` },

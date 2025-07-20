@@ -1,5 +1,6 @@
+import { ScheduleTriggerRule } from "../types";
 import { isStringArray, parseWeekdays } from "../utils";
-import N8Node from "./Node";
+import WorkflowNode from "./WorkflowNode";
 
 const normalizeScheduleRule = (
   raw: Record<string, any>
@@ -13,48 +14,8 @@ const normalizeScheduleRule = (
   throw new Error("Invalid schedule rule: missing interval field");
 };
 
-interface SecondsInterval {
-  secondsInterval: number | string;
-}
-
-interface MinutesInterval {
-  minutesInterval: number | string;
-}
-
-interface HoursInterval {
-  hoursInterval: number | string;
-}
-
-interface DaysInterval {
-  daysInterval: number | string;
-  triggerAtHour?: number | string;
-  triggerAtMinute?: number | string;
-}
-
-interface WeeksInterval {
-  weeksInterval: number | string;
-  triggerAtDay: string[] | number[] | string; // 0 = Sunday ... 6 = Saturday
-  triggerAtHour?: number | string;
-  triggerAtMinute?: number | string;
-}
-
-interface MonthsInterval {
-  monthsInterval: number | string;
-  triggerAtDayOfMonth: number | string;
-  triggerAtHour?: number | string;
-  triggerAtMinute?: number | string;
-}
-
-export type ScheduleTriggerRule =
-  | SecondsInterval
-  | MinutesInterval
-  | HoursInterval
-  | DaysInterval
-  | WeeksInterval
-  | MonthsInterval;
-
-export default class ScheduleTrigger extends N8Node {
-  private static counter = 1;
+export default class ScheduleTrigger extends WorkflowNode {
+  protected static counter = 0;
 
   constructor(config: {
     id?: string;
@@ -77,7 +38,7 @@ export default class ScheduleTrigger extends N8Node {
       name:
         config.name ??
         `Schedule Trigger${
-          ScheduleTrigger.counter++ > 0 && " " + ScheduleTrigger.counter
+          ScheduleTrigger.counter++ > 0 ? " " + ScheduleTrigger.counter : ""
         }`,
       type: "n8n-nodes-base.scheduleTrigger",
       version: config.version ?? 1.2,

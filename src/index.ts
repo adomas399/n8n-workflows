@@ -1,11 +1,7 @@
-import dotenv from "dotenv";
-import fs from "fs";
-import path from "path";
-import { ScheduleTriggerRule } from "./nodes/ScheduleTrigger";
-import { N8NCredential } from "./types";
+import { N8NCredential, ScheduleTriggerRule } from "./types";
+import { loadFile, saveFile } from "./utils";
 import BudgetReport from "./workflows/BudgetReport";
 
-dotenv.config({ path: ".env" });
 const N8N_URL = process.env.N8N_URL;
 const N8N_API_KEY = process.env.N8N_API_KEY;
 
@@ -14,10 +10,7 @@ if (!N8N_URL || !N8N_API_KEY) {
 }
 
 function main() {
-  const prompt = fs.readFileSync(
-    path.join(__dirname, "..", "input", "budgetReviewPrompt.txt"),
-    "utf-8"
-  );
+  const prompt = loadFile("budgetReviewPrompt.txt");
 
   const scheduleTriggerRules: ScheduleTriggerRule[] = [
     {
@@ -62,7 +55,9 @@ function main() {
     resendCredential,
   });
 
-  budgetReport.push(N8N_URL!, N8N_API_KEY!, true);
+  saveFile(budgetReport.json());
+
+  //budgetReport.push(N8N_URL!, N8N_API_KEY!, true);
 }
 
 main();

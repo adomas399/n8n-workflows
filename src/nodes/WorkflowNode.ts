@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { N8NCredential } from "../types";
 
-export default abstract class N8Node {
+export default abstract class WorkflowNode {
   id: string;
   name: string;
   type: string;
@@ -11,9 +11,11 @@ export default abstract class N8Node {
   connections?: Record<string, any>;
   position?: [number, number];
 
+  protected static counter = 0;
+
   constructor(config: {
     id?: string;
-    name: string;
+    name?: string;
     type: string;
     version: number;
     parameters?: Record<string, any>;
@@ -22,7 +24,9 @@ export default abstract class N8Node {
     position?: [number, number];
   }) {
     this.id = config.id ?? uuidv4();
-    this.name = config.name;
+    this.name =
+      config.name ??
+      `AI Agent${WorkflowNode.counter++ > 0 ? " " + WorkflowNode.counter : ""}`;
     this.type = config.type;
     this.version = config.version;
     this.parameters = config.parameters ?? {};

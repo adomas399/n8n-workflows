@@ -1,8 +1,8 @@
 import { N8NCredential } from "../types";
-import Node from "./Node";
+import WorkflowNode from "./WorkflowNode";
 
-export default class OpenRouterChatModel extends Node {
-  protected static counter = 1;
+export default class OpenRouterChatModel extends WorkflowNode {
+  protected static counter = 0;
 
   constructor(config: {
     id?: string;
@@ -18,7 +18,9 @@ export default class OpenRouterChatModel extends Node {
       name:
         config.name ??
         `OpenRouter Chat Model${
-          OpenRouterChatModel.counter++ > 0 && " " + OpenRouterChatModel.counter
+          OpenRouterChatModel.counter++ > 0
+            ? " " + OpenRouterChatModel.counter
+            : ""
         }`,
       type: "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       version: config.version ?? 1,

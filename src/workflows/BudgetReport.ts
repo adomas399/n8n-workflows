@@ -2,8 +2,8 @@ import AIAgent from "../nodes/AIAgent";
 import MCPClient from "../nodes/MCPClient";
 import OpenRouterChatModel from "../nodes/OpenRouterChatModel";
 import Resend from "../nodes/Resend";
-import ScheduleTrigger, { ScheduleTriggerRule } from "../nodes/ScheduleTrigger";
-import { N8NCredential } from "../types";
+import ScheduleTrigger from "../nodes/ScheduleTrigger";
+import { N8NCredential, ScheduleTriggerRule } from "../types";
 import Workflow from "./Workflow";
 
 export default class BudgetReport extends Workflow {
@@ -35,7 +35,6 @@ export default class BudgetReport extends Workflow {
     );
     this.addNode(
       new AIAgent({
-        name: "AI Agent",
         prompt: config.prompt,
         connections: ["Resend"],
       })
@@ -59,12 +58,11 @@ export default class BudgetReport extends Workflow {
     );
     this.addNode(
       new Resend({
-        name: "Resend",
         from: config.mailFrom,
         to: config.mailTo,
         subject:
           config.mailSubject ??
-          "Budget Report — {{ $json['Month'] }} {{ $json['Day of month'] }}",
+          "Budget Report — {{ $('Schedule Trigger').item.json.Month }}{{ $('Schedule Trigger').item.json['Day of month'] }}",
         html: "{{ $json.output }}",
         credential: config.resendCredential,
       })
