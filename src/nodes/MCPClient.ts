@@ -32,7 +32,7 @@ export default class MCPClient extends WorkflowNode {
         excludeTools: config.excludeTools,
         authentication: config.authentication,
       },
-      credentials:
+      credential:
         config.credential &&
         (config.authentication == "headerAuth"
           ? ({

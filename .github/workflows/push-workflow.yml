@@ -1,0 +1,26 @@
+name: Push N8N Workflow
+
+on:
+  workflow_dispatch: # Manual trigger from GitHub UI
+
+jobs:
+  run-docker:
+    runs-on: ubuntu-latest
+
+    env:
+      N8N_URL: ${{ secrets.N8N_URL }}
+      N8N_API_KEY: ${{ secrets.N8N_API_KEY }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t n8n-workflows-image .
+
+      - name: Run Docker container
+        run: |
+          docker run --rm \
+            -e N8N_URL="${{ env.N8N_URL }}" \
+            -e N8N_API_KEY="${{ env.N8N_API_KEY }}" \
+            n8n-workflows-image

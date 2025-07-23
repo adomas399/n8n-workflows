@@ -34,6 +34,7 @@ The engine enables you to:
 ### Prerequisities
 
 - [Node.js](https://nodejs.org/en/download)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) (optional)
 
 ### Setup
 
@@ -65,6 +66,8 @@ N8N_API_KEY=your-n8n-api-key
 
 ## Usage
 
+### Using Node.js
+
 Run the configurable index.ts file:
 
 ```bash
@@ -75,6 +78,20 @@ or
 
 ```bash
 npm run dev
+```
+
+### Using Docker
+
+1. Build the image:
+
+```bash
+docker build -t local-image .
+```
+
+2. Run the image:
+
+```bash
+docker build -t local-image .
 ```
 
 ### Examples
@@ -123,7 +140,7 @@ workflow.addNode(scheduleTrigger);
 workflow.addNode(script);
 
 // Export Workflow as json to /output for debugging
-saveFile(workflow.json());
+workflow.save();
 
 // Push Workflow to n8n via the API
 workflow.push(true); // Whether to look for a matching workflow to replace (by name)
@@ -149,8 +166,8 @@ const scheduleTriggerRules: ScheduleTriggerRule[] = [
   },
 ];
 
-// Initialize all necessary Credentials (these must be available on your n8n instance)
-const openRouterCredential: N8NCredential = {
+// Initialize all necessary Credentials (these must be available on your n8n)
+const modelProviderCredential: N8NCredential = {
   name: "123",
   id: "abc",
 };
@@ -176,7 +193,9 @@ const budgetReport = new BudgetReport({
   name: "Weekly Budget Report",
   scheduleTriggerRules,
   prompt,
-  openRouterCredential,
+  chatModel: "anthropic/claude-3.7-sonnet",
+  modelProvider: "OpenRouter",
+  modelProviderCredential,
   sseEndpoint: "https://your-actual-mcp-url/sse",
   sseAuthentication: "bearerAuth",
   sseCredential,
@@ -187,7 +206,7 @@ const budgetReport = new BudgetReport({
 });
 
 // Export Workflow as json to /output for debugging
-saveFile(budgetReport.json());
+budgetReport.save();
 
 // Push Workflow to n8n via the API
 budgetReport.push(true);

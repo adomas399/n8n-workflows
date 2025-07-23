@@ -1,7 +1,7 @@
 import ScheduleTrigger from "./nodes/ScheduleTrigger";
 import WorkflowNode from "./nodes/WorkflowNode";
 import { N8NCredential, ScheduleTriggerRule } from "./types";
-import { loadFile, saveFile } from "./utils";
+import { loadFile } from "./utils";
 import BudgetReport from "./workflows/BudgetReport";
 import Workflow from "./workflows/Workflow";
 
@@ -35,7 +35,7 @@ function helloWorld() {
   workflow.addNode(script);
 
   // Export Workflow as json to /output for debugging
-  saveFile(workflow.json());
+  workflow.save();
 
   // Push Workflow to n8n via the API
   workflow.push(true); // Whether to look for a matching workflow to replace (by name)
@@ -55,7 +55,7 @@ function budgetReview() {
   ];
 
   // Initialize all necessary Credentials (these must be available on your n8n)
-  const openRouterCredential: N8NCredential = {
+  const modelProviderCredential: N8NCredential = {
     name: "123",
     id: "abc",
   };
@@ -81,7 +81,9 @@ function budgetReview() {
     name: "Weekly Budget Report",
     scheduleTriggerRules,
     prompt,
-    openRouterCredential,
+    chatModel: "anthropic/claude-3.7-sonnet",
+    modelProvider: "OpenRouter",
+    modelProviderCredential,
     sseEndpoint: "https://your-actual-mcp-url/sse",
     sseAuthentication: "bearerAuth",
     sseCredential,
@@ -92,7 +94,7 @@ function budgetReview() {
   });
 
   // Export Workflow as json to /output for debugging
-  saveFile(budgetReport.json());
+  budgetReport.save();
 
   // Push Workflow to n8n via the API
   budgetReport.push(true);

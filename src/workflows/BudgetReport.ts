@@ -1,9 +1,9 @@
 import AIAgent from "../nodes/AIAgent";
+import ChatModel from "../nodes/ChatModel";
 import MCPClient from "../nodes/MCPClient";
-import OpenRouterChatModel from "../nodes/OpenRouterChatModel";
 import Resend from "../nodes/Resend";
 import ScheduleTrigger from "../nodes/ScheduleTrigger";
-import { N8NCredential, ScheduleTriggerRule } from "../types";
+import { LLMProvider, N8NCredential, ScheduleTriggerRule } from "../types";
 import Workflow from "./Workflow";
 
 export default class BudgetReport extends Workflow {
@@ -11,8 +11,10 @@ export default class BudgetReport extends Workflow {
     name?: string;
     scheduleTriggerRules: ScheduleTriggerRule[];
     prompt: string;
-    chatModel?: string;
-    openRouterCredential: N8NCredential;
+    chatModel: string;
+    modelProvider: LLMProvider;
+    modelProviderCredential: N8NCredential;
+    chatModelOptions?: Record<string, any>;
     sseEndpoint: string;
     sseAuthentication?: "bearerAuth" | "headerAuth";
     sseCredential?: N8NCredential;
@@ -38,9 +40,11 @@ export default class BudgetReport extends Workflow {
       })
     );
     this.addNode(
-      new OpenRouterChatModel({
-        model: config.chatModel ?? "anthropic/claude-3.7-sonnet",
-        credential: config.openRouterCredential,
+      new ChatModel({
+        model: config.chatModel,
+        provider: config.modelProvider,
+        credential: config.modelProviderCredential,
+        options: config.chatModelOptions,
         connections: ["AI Agent"],
       })
     );

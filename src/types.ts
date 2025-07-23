@@ -5,6 +5,19 @@ export interface WorkflowJSON {
   settings: Record<string, any>;
 }
 
+export type LLMProvider =
+  | "OpenRouter"
+  | "OpenAi"
+  | "Anthropic"
+  | "GoogleGemini"
+  | "MistralCloud"
+  | "DeepSeek"
+  | "Groq"
+  | "XAiGroq"
+  | "AzureOpenAi"
+  | "Ollama"
+  | "AwsBedrock";
+
 export interface N8NCredential {
   name: string;
   id: string;

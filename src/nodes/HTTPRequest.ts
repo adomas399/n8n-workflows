@@ -8,7 +8,7 @@ export default class HTTPRequest extends WorkflowNode {
     id?: string;
     name?: string;
     version?: number;
-    method: "GET" | "POST";
+    method: "GET" | "POST" | "DELETE" | "PUT" | "PATCH" | "HEAD" | "OPTIONS";
     url: string;
     headerParameters?: { name: string; value: string }[];
     bodyParameters?: { name: string; value: string }[];
@@ -42,7 +42,7 @@ export default class HTTPRequest extends WorkflowNode {
           config.authentication == "genericCredentialType" &&
           config.credentialType,
       },
-      credentials:
+      credential:
         config.credentialType && config.credential
           ? ({
               [config.credentialType]: config.credential,

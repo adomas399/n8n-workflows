@@ -7,7 +7,7 @@ export default class WorkflowNode {
   type: string;
   version: number;
   parameters: Record<string, any>;
-  credentials?: Record<string, N8NCredential>;
+  credential?: Record<string, N8NCredential>;
   connections?: Record<string, any>;
   position?: [number, number];
 
@@ -19,7 +19,7 @@ export default class WorkflowNode {
     type: string;
     version: number;
     parameters?: Record<string, any>;
-    credentials?: Record<string, N8NCredential>;
+    credential?: Record<string, N8NCredential>;
     connections?: Record<string, string[]>;
     position?: [number, number];
   }) {
@@ -30,9 +30,13 @@ export default class WorkflowNode {
     this.type = config.type;
     this.version = config.version;
     this.parameters = config.parameters ?? {};
-    this.credentials = config.credentials;
+    this.credential = config.credential;
     this.connections = config.connections;
     this.position = config.position ?? [0, 0];
+
+    if (!this.parameters.options) {
+      this.parameters.options = {};
+    }
   }
 
   json(): Record<string, any> {
@@ -43,7 +47,7 @@ export default class WorkflowNode {
       parameters: this.parameters,
       position: this.position,
       ...(this.version && { typeVersion: this.version }),
-      ...(this.credentials && { credentials: this.credentials }),
+      ...(this.credential && { credentials: this.credential }),
     };
   }
 
