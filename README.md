@@ -94,7 +94,11 @@ docker build -t local-image .
 docker build -t local-image .
 ```
 
-### Examples
+### Using GitHub Actions
+
+Run Action 'Push N8N Workflow' on Github
+
+## Examples
 
 Copy the example code to index.ts:
 
@@ -102,7 +106,7 @@ Copy the example code to index.ts:
 cp src/index.example.ts src/index.ts
 ```
 
-#### Hello World Workflow
+### Hello World Workflow
 
 ```ts
 import ScheduleTrigger from "./nodes/ScheduleTrigger";
@@ -146,7 +150,7 @@ workflow.save();
 workflow.push(true); // Whether to look for a matching workflow to replace (by name)
 ```
 
-#### Budget Review Template
+### Budget Review Template
 
 ```ts
 import ScheduleTrigger from "./nodes/ScheduleTrigger";
