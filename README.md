@@ -42,7 +42,7 @@ The engine enables you to:
 
 ```bash
 git clone https://github.com/adomas399/n8n-workflows.git
-cd actual-mcp
+cd n8n-workflows
 ```
 
 2. Install dependencies:
