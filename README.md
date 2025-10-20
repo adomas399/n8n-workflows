@@ -91,7 +91,7 @@ docker build -t local-image .
 2. Run the image:
 
 ```bash
-docker build -t local-image .
+docker run local-image
 ```
 
 ### Using GitHub Actions
