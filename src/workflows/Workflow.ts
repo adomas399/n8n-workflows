@@ -1,6 +1,6 @@
 import WorkflowNode from '../nodes/WorkflowNode';
 import { WorkflowJSON } from '../types';
-import { saveFile } from '../utils';
+import { safeJson, saveFile } from '../utils';
 
 export default class Workflow {
   name: string;
@@ -47,29 +47,21 @@ export default class Workflow {
     N8N_URL?: string,
     N8N_API_KEY?: string
   ): Promise<boolean> {
-    const n8n_url = N8N_URL ?? process.env.N8N_URL;
-    const n8n_api_key = N8N_API_KEY ?? process.env.N8N_API_KEY;
-
-    if (!n8n_url || !n8n_api_key) {
-      console.error(
-        `❌ Error pushing workflow "${this.name}":`,
-        'n8n url and/or api key not provided'
-      );
-      return false;
-    }
-
     try {
       const workflowData = this.json();
 
       if (updateIfMatching) {
         // Get all workflows
-        const response = await fetch(`${n8n_url}/api/v1/workflows`, {
-          headers: {
-            accept: 'application/json',
-            'X-N8N-API-KEY': n8n_api_key,
-          },
-        });
-        const existingWorkflows = await response.json();
+        const response = await fetch(
+          `${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows`,
+          {
+            headers: {
+              accept: 'application/json',
+              'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
+            },
+          }
+        );
+        const existingWorkflows = await safeJson(response);
 
         // Find matching workflow by name
         const matchingWorkflow = existingWorkflows.data.find(
@@ -78,27 +70,32 @@ export default class Workflow {
 
         if (matchingWorkflow) {
           // Update existing workflow
-          await fetch(`${n8n_url}/api/v1/workflows/${matchingWorkflow.id}`, {
-            method: 'PUT',
-            headers: {
-              accept: 'application/json',
-              'Content-Type': 'application/json',
-              'X-N8N-API-KEY': n8n_api_key,
-            },
-            body: JSON.stringify(workflowData),
-          });
+          await fetch(
+            `${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows/${
+              matchingWorkflow.id
+            }`,
+            {
+              method: 'PUT',
+              headers: {
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
+              },
+              body: JSON.stringify(workflowData),
+            }
+          );
           console.log(`✅ Updated workflow ${this.name} on n8n`);
           return true;
         }
       }
 
       // Create new workflow
-      await fetch(`${n8n_url}/api/v1/workflows`, {
+      await fetch(`${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows`, {
         method: 'POST',
         headers: {
           accept: 'application/json',
           'Content-Type': 'application/json',
-          'X-N8N-API-KEY': n8n_api_key,
+          'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
         },
         body: JSON.stringify(workflowData),
       });

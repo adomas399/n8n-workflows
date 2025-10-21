@@ -48,3 +48,32 @@ export function saveFile(data: any, filename: string): string {
 
   return outputPath;
 }
+
+export async function safeJson(res: Response) {
+  const contentType = res.headers.get('content-type') || '';
+
+  // Check status
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(
+      `HTTP ${res.status} ${res.statusText}\n` +
+        (text.startsWith('<!DOCTYPE')
+          ? '→ HTML returned (wrong URL or auth?)'
+          : text.slice(0, 200))
+    );
+  }
+
+  // Check content type
+  if (!contentType.includes('application/json')) {
+    const text = await res.text();
+    throw new Error(
+      `Expected JSON but got ${contentType}\n` +
+        (text.startsWith('<!DOCTYPE')
+          ? '→ HTML returned (probably login/error page)'
+          : text.slice(0, 200))
+    );
+  }
+
+  // Safe to parse now
+  return res.json();
+}
