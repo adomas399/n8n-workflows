@@ -49,47 +49,46 @@ export default class Workflow {
   ): Promise<boolean> {
     try {
       const workflowData = this.json();
+      // Get all workflows
+      const response = await fetch(
+        `${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows`,
+        {
+          headers: {
+            accept: 'application/json',
+            'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
+          },
+        }
+      );
+      const existingWorkflows = await safeJson(response);
 
-      if (updateIfMatching) {
-        // Get all workflows
-        const response = await fetch(
-          `${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows`,
+      // Find matching workflow by name
+      const matchingWorkflow = existingWorkflows.data.find(
+        (workflow: any) =>
+          !workflow.isArchived &&
+          workflow.name == this.name &&
+          workflow.shared[0]?.role == 'workflow:owner'
+      );
+
+      if (updateIfMatching && matchingWorkflow) {
+        // Update existing workflow
+        await fetch(
+          `${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows/${
+            matchingWorkflow.id
+          }`,
           {
+            method: 'PUT',
             headers: {
               accept: 'application/json',
+              'Content-Type': 'application/json',
               'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
             },
+            body: JSON.stringify(workflowData),
           }
         );
-        const existingWorkflows = await safeJson(response);
-
-        // Find matching workflow by name
-        const matchingWorkflow = existingWorkflows.data.find(
-          (workflow: any) =>
-            !workflow.isArchived &&
-            workflow.name == this.name &&
-            workflow.shared[0]?.role == 'workflow:owner'
-        );
-
-        if (matchingWorkflow) {
-          // Update existing workflow
-          await fetch(
-            `${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows/${
-              matchingWorkflow.id
-            }`,
-            {
-              method: 'PUT',
-              headers: {
-                accept: 'application/json',
-                'Content-Type': 'application/json',
-                'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
-              },
-              body: JSON.stringify(workflowData),
-            }
-          );
-          console.log(`✅ Updated workflow ${this.name} on n8n`);
-          return true;
-        }
+        console.log(`✅ Updated workflow ${this.name} on n8n`);
+        return true;
+      } else if (matchingWorkflow) {
+        throw new Error('Workflow with this name already exists');
       }
 
       // Create new workflow
