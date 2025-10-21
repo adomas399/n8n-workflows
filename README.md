@@ -85,7 +85,7 @@ npm run dev
 1. Build the image:
 
 ```bash
-docker build -t local-image .
+docker build -t local-image . --load
 ```
 
 2. Run the image:
