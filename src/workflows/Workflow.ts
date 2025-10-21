@@ -1,6 +1,6 @@
-import WorkflowNode from "../nodes/WorkflowNode";
-import { WorkflowJSON } from "../types";
-import { saveFile } from "../utils";
+import WorkflowNode from '../nodes/WorkflowNode';
+import { WorkflowJSON } from '../types';
+import { saveFile } from '../utils';
 
 export default class Workflow {
   name: string;
@@ -38,7 +38,7 @@ export default class Workflow {
   }
 
   save(filename?: string) {
-    const outputPath = saveFile(this.json(), filename ?? this.name + ".json");
+    const outputPath = saveFile(this.json(), filename ?? this.name + '.json');
     console.log(`✅ Saved workflow "${this.name}" to ${outputPath}`);
   }
 
@@ -56,8 +56,8 @@ export default class Workflow {
           `${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows`,
           {
             headers: {
-              accept: "application/json",
-              "X-N8N-API-KEY": N8N_API_KEY ?? process.env.N8N_API_KEY!,
+              accept: 'application/json',
+              'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
             },
           }
         );
@@ -75,11 +75,11 @@ export default class Workflow {
               matchingWorkflow.id
             }`,
             {
-              method: "PUT",
+              method: 'PUT',
               headers: {
-                accept: "application/json",
-                "Content-Type": "application/json",
-                "X-N8N-API-KEY": N8N_API_KEY ?? process.env.N8N_API_KEY!,
+                accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
               },
               body: JSON.stringify(workflowData),
             }
@@ -91,11 +91,11 @@ export default class Workflow {
 
       // Create new workflow
       await fetch(`${N8N_URL ?? process.env.N8N_URL!}/api/v1/workflows`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          "X-N8N-API-KEY": N8N_API_KEY ?? process.env.N8N_API_KEY!,
+          accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-N8N-API-KEY': N8N_API_KEY ?? process.env.N8N_API_KEY!,
         },
         body: JSON.stringify(workflowData),
       });

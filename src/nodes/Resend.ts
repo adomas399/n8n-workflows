@@ -1,5 +1,5 @@
-import { N8NCredential } from "../types";
-import HTTPRequest from "./HTTPRequest";
+import { N8NCredential } from '../types';
+import HTTPRequest from './HTTPRequest';
 
 export default class Resend extends HTTPRequest {
   protected static counter = 0;
@@ -20,35 +20,35 @@ export default class Resend extends HTTPRequest {
       id: config.id,
       name:
         config.name ??
-        `Resend${Resend.counter++ > 0 ? " " + Resend.counter : ""}`,
+        `Resend${Resend.counter++ > 0 ? ' ' + Resend.counter : ''}`,
       version: 4.2,
-      method: "POST",
-      url: "https://api.resend.com/emails",
-      headerParameters: [{ name: "Content-Type", value: "application/json" }],
+      method: 'POST',
+      url: 'https://api.resend.com/emails',
+      headerParameters: [{ name: 'Content-Type', value: 'application/json' }],
       bodyParameters: [
         {
-          name: "from",
-          value: `=${config.from ?? "onboarding@resend.dev"}`,
+          name: 'from',
+          value: `=${config.from ?? 'onboarding@resend.dev'}`,
         },
         {
-          name: "to",
+          name: 'to',
           value: `=${config.to}`,
         },
         {
-          name: "subject",
+          name: 'subject',
           value: `=${config.subject}`,
         },
         {
-          name: "text",
-          value: `=${config.text ?? ""}`,
+          name: 'text',
+          value: `=${config.text ?? ''}`,
         },
         {
-          name: "html",
-          value: `=${config.html ?? ""}`,
+          name: 'html',
+          value: `=${config.html ?? ''}`,
         },
       ],
-      authentication: "genericCredentialType",
-      credentialType: "httpBearerAuth",
+      authentication: 'genericCredentialType',
+      credentialType: 'httpBearerAuth',
       credential: config.credential,
     });
   }

@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
-import { N8NCredential } from "../types";
+import { v4 as uuidv4 } from 'uuid';
+import { N8NCredential } from '../types';
 
 export default class WorkflowNode {
   id: string;
@@ -26,7 +26,7 @@ export default class WorkflowNode {
     this.id = config.id ?? uuidv4();
     this.name =
       config.name ??
-      `AI Agent${WorkflowNode.counter++ > 0 ? " " + WorkflowNode.counter : ""}`;
+      `AI Agent${WorkflowNode.counter++ > 0 ? ' ' + WorkflowNode.counter : ''}`;
     this.type = config.type;
     this.version = config.version;
     this.parameters = config.parameters ?? {};

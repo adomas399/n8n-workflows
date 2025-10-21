@@ -1,5 +1,5 @@
-import { N8NCredential } from "../types";
-import WorkflowNode from "./WorkflowNode";
+import { N8NCredential } from '../types';
+import WorkflowNode from './WorkflowNode';
 
 export default class ChatModel extends WorkflowNode {
   protected static counter = 0;
@@ -9,17 +9,17 @@ export default class ChatModel extends WorkflowNode {
     name?: string;
     version?: number;
     provider:
-      | "OpenRouter"
-      | "OpenAi"
-      | "Anthropic"
-      | "GoogleGemini"
-      | "MistralCloud"
-      | "DeepSeek"
-      | "Groq"
-      | "XAiGroq"
-      | "AzureOpenAi"
-      | "Ollama"
-      | "AwsBedrock";
+      | 'OpenRouter'
+      | 'OpenAi'
+      | 'Anthropic'
+      | 'GoogleGemini'
+      | 'MistralCloud'
+      | 'DeepSeek'
+      | 'Groq'
+      | 'XAiGroq'
+      | 'AzureOpenAi'
+      | 'Ollama'
+      | 'AwsBedrock';
     model: string;
     credential: N8NCredential;
     connections: string[];
@@ -28,27 +28,27 @@ export default class ChatModel extends WorkflowNode {
   }) {
     let credentialKey;
     switch (config.provider) {
-      case "GoogleGemini":
-        credentialKey = "googlePalmApi";
+      case 'GoogleGemini':
+        credentialKey = 'googlePalmApi';
         break;
-      case "AwsBedrock":
-        credentialKey = "aws";
+      case 'AwsBedrock':
+        credentialKey = 'aws';
         break;
-      case "XAiGroq":
-        credentialKey = "xAiApi";
+      case 'XAiGroq':
+        credentialKey = 'xAiApi';
         break;
       default:
         credentialKey =
           config.provider.charAt(0).toLowerCase() +
           config.provider.slice(1) +
-          "Api";
+          'Api';
     }
 
     super({
       id: config.id,
       name:
         config.name ??
-        `Chat Model${ChatModel.counter++ > 0 ? " " + ChatModel.counter : ""}`,
+        `Chat Model${ChatModel.counter++ > 0 ? ' ' + ChatModel.counter : ''}`,
       type: `@n8n/n8n-nodes-langchain.lmChat${config.provider}`,
       version: config.version ?? 1,
       parameters: { model: `=${config.model}`, options: config.options },

@@ -1,5 +1,5 @@
-import { N8NCredential } from "../types";
-import WorkflowNode from "./WorkflowNode";
+import { N8NCredential } from '../types';
+import WorkflowNode from './WorkflowNode';
 
 export default class HTTPRequest extends WorkflowNode {
   protected static counter = 0;
@@ -8,11 +8,11 @@ export default class HTTPRequest extends WorkflowNode {
     id?: string;
     name?: string;
     version?: number;
-    method: "GET" | "POST" | "DELETE" | "PUT" | "PATCH" | "HEAD" | "OPTIONS";
+    method: 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH' | 'HEAD' | 'OPTIONS';
     url: string;
     headerParameters?: { name: string; value: string }[];
     bodyParameters?: { name: string; value: string }[];
-    authentication?: "predefinedCredentialType" | "genericCredentialType";
+    authentication?: 'predefinedCredentialType' | 'genericCredentialType';
     credentialType?: string;
     credential?: N8NCredential;
     connections?: string[];
@@ -23,9 +23,9 @@ export default class HTTPRequest extends WorkflowNode {
       name:
         config.name ??
         `HTTP Request${
-          HTTPRequest.counter++ > 0 ? " " + HTTPRequest.counter : ""
+          HTTPRequest.counter++ > 0 ? ' ' + HTTPRequest.counter : ''
         }`,
-      type: "n8n-nodes-base.httpRequest",
+      type: 'n8n-nodes-base.httpRequest',
       version: config.version ?? 4.2,
       parameters: {
         method: config.method,
@@ -36,10 +36,10 @@ export default class HTTPRequest extends WorkflowNode {
         sendBody: config.bodyParameters != null,
         bodyParameters: { parameters: config.bodyParameters },
         nodeCredentialType:
-          config.authentication == "predefinedCredentialType" &&
+          config.authentication == 'predefinedCredentialType' &&
           config.credentialType,
         genericAuthType:
-          config.authentication == "genericCredentialType" &&
+          config.authentication == 'genericCredentialType' &&
           config.credentialType,
       },
       credential:

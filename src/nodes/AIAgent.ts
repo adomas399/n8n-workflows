@@ -1,4 +1,4 @@
-import WorkflowNode from "./WorkflowNode";
+import WorkflowNode from './WorkflowNode';
 
 export default class AIAgent extends WorkflowNode {
   protected static counter = 0;
@@ -15,10 +15,10 @@ export default class AIAgent extends WorkflowNode {
       id: config.id,
       name:
         config.name ??
-        `AI Agent${AIAgent.counter++ > 0 ? " " + AIAgent.counter : ""}`,
-      type: "@n8n/n8n-nodes-langchain.agent",
+        `AI Agent${AIAgent.counter++ > 0 ? ' ' + AIAgent.counter : ''}`,
+      type: '@n8n/n8n-nodes-langchain.agent',
       version: config.version ?? 2,
-      parameters: { promptType: "define", text: `=${config.prompt}` },
+      parameters: { promptType: 'define', text: `=${config.prompt}` },
       connections: config.connections && { main: config.connections },
       position: config.position,
     });

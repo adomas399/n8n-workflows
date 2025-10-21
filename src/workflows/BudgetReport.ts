@@ -1,10 +1,10 @@
-import AIAgent from "../nodes/AIAgent";
-import ChatModel from "../nodes/ChatModel";
-import MCPClient from "../nodes/MCPClient";
-import Resend from "../nodes/Resend";
-import ScheduleTrigger from "../nodes/ScheduleTrigger";
-import { LLMProvider, N8NCredential, ScheduleTriggerRule } from "../types";
-import Workflow from "./Workflow";
+import AIAgent from '../nodes/AIAgent';
+import ChatModel from '../nodes/ChatModel';
+import MCPClient from '../nodes/MCPClient';
+import Resend from '../nodes/Resend';
+import ScheduleTrigger from '../nodes/ScheduleTrigger';
+import { LLMProvider, N8NCredential, ScheduleTriggerRule } from '../types';
+import Workflow from './Workflow';
 
 export default class BudgetReport extends Workflow {
   constructor(config: {
@@ -15,9 +15,9 @@ export default class BudgetReport extends Workflow {
     modelProvider: LLMProvider;
     modelProviderCredential: N8NCredential;
     chatModelOptions?: Record<string, any>;
-    sseEndpoint: string;
-    sseAuthentication?: "bearerAuth" | "headerAuth";
-    sseCredential?: N8NCredential;
+    MCPEndpoint: string;
+    MCPAuthentication?: 'bearerAuth' | 'headerAuth';
+    MCPCredential?: N8NCredential;
     includeMCPTools?: string[];
     excludeMCPTools?: string[];
     mailFrom?: string;
@@ -25,18 +25,18 @@ export default class BudgetReport extends Workflow {
     mailSubject?: string;
     resendCredential: N8NCredential;
   }) {
-    super(config.name ?? "Budget Report");
+    super(config.name ?? 'Budget Report');
 
     this.addNode(
       new ScheduleTrigger({
         rules: config.scheduleTriggerRules,
-        connections: ["AI Agent"],
+        connections: ['AI Agent'],
       })
     );
     this.addNode(
       new AIAgent({
         prompt: config.prompt,
-        connections: ["Resend"],
+        connections: ['Resend'],
       })
     );
     this.addNode(
@@ -45,17 +45,17 @@ export default class BudgetReport extends Workflow {
         provider: config.modelProvider,
         credential: config.modelProviderCredential,
         options: config.chatModelOptions,
-        connections: ["AI Agent"],
+        connections: ['AI Agent'],
       })
     );
     this.addNode(
       new MCPClient({
-        sseEndpoint: config.sseEndpoint,
-        authentication: config.sseAuthentication,
-        credential: config.sseCredential,
+        sseEndpoint: config.MCPEndpoint,
+        authentication: config.MCPAuthentication,
+        credential: config.MCPCredential,
         includeTools: config.includeMCPTools,
         excludeTools: config.excludeMCPTools,
-        connections: ["AI Agent"],
+        connections: ['AI Agent'],
       })
     );
     this.addNode(
@@ -65,7 +65,7 @@ export default class BudgetReport extends Workflow {
         subject:
           config.mailSubject ??
           "Budget Report — {{ $('Schedule Trigger').item.json.Month }}{{ $('Schedule Trigger').item.json['Day of month'] }}",
-        html: "{{ $json.output }}",
+        html: '{{ $json.output }}',
         credential: config.resendCredential,
       })
     );

@@ -6,17 +6,17 @@ export interface WorkflowJSON {
 }
 
 export type LLMProvider =
-  | "OpenRouter"
-  | "OpenAi"
-  | "Anthropic"
-  | "GoogleGemini"
-  | "MistralCloud"
-  | "DeepSeek"
-  | "Groq"
-  | "XAiGroq"
-  | "AzureOpenAi"
-  | "Ollama"
-  | "AwsBedrock";
+  | 'OpenRouter'
+  | 'OpenAi'
+  | 'Anthropic'
+  | 'GoogleGemini'
+  | 'MistralCloud'
+  | 'DeepSeek'
+  | 'Groq'
+  | 'XAiGroq'
+  | 'AzureOpenAi'
+  | 'Ollama'
+  | 'AwsBedrock';
 
 export interface N8NCredential {
   name: string;

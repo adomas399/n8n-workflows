@@ -1,6 +1,5 @@
-import fs from "fs";
-import path from "path";
-import { WorkflowJSON } from "./types";
+import fs from 'fs';
+import path from 'path';
 
 const weekdayMap = {
   sunday: 0,
@@ -25,19 +24,19 @@ export function parseWeekdays(days: string[]): Weekday[] {
 
 export function isStringArray(value: unknown): value is string[] {
   return (
-    Array.isArray(value) && value.every((item) => typeof item === "string")
+    Array.isArray(value) && value.every((item) => typeof item === 'string')
   );
 }
 
 export function loadFile(filename: string): string {
   return fs.readFileSync(
-    path.join(__dirname, "..", "input", filename),
-    "utf-8"
+    path.join(__dirname, '..', 'input', filename),
+    'utf-8'
   );
 }
 
 export function saveFile(data: any, filename: string): string {
-  const outputDir = path.join(__dirname, "..", "output");
+  const outputDir = path.join(__dirname, '..', 'output');
   const outputPath = path.join(outputDir, filename);
 
   // Ensure output directory exists
