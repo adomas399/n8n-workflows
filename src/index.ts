@@ -39,7 +39,7 @@ function budgetReview() {
 
   // Initialize a Budget Report Workflow template
   const budgetReport = new BudgetReport({
-    name: 'Weekly Budget Report',
+    name: process.env.WORKFLOW_NAME ?? 'Weekly Budget Report',
     scheduleTriggerRules,
     prompt,
     chatModel: 'anthropic/claude-3.7-sonnet',
@@ -58,7 +58,7 @@ function budgetReview() {
   budgetReport.save();
 
   // Push Workflow to n8n via the API
-  budgetReport.push(true);
+  budgetReport.push(process.env.OVERWRITE?.toLowerCase() == 'true');
 }
 
 budgetReview();

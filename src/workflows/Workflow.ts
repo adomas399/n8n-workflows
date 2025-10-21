@@ -65,7 +65,10 @@ export default class Workflow {
 
         // Find matching workflow by name
         const matchingWorkflow = existingWorkflows.data.find(
-          (workflow: any) => !workflow.isArchived && workflow.name == this.name
+          (workflow: any) =>
+            !workflow.isArchived &&
+            workflow.name == this.name &&
+            workflow.shared[0]?.role == 'workflow:owner'
         );
 
         if (matchingWorkflow) {
