@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import { N8NCredential } from '../types';
 
 export default class WorkflowNode {
   id: string;
@@ -7,7 +6,7 @@ export default class WorkflowNode {
   type: string;
   version: number;
   parameters: Record<string, any>;
-  credential?: Record<string, N8NCredential>;
+  credential?: Record<string, any>;
   connections?: Record<string, any>;
   position?: [number, number];
 
@@ -19,7 +18,7 @@ export default class WorkflowNode {
     type: string;
     version: number;
     parameters?: Record<string, any>;
-    credential?: Record<string, N8NCredential>;
+    credential?: Record<string, any>;
     connections?: Record<string, string[]>;
     position?: [number, number];
   }) {

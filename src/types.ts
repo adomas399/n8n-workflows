@@ -18,11 +18,6 @@ export type LLMProvider =
   | 'Ollama'
   | 'AwsBedrock';
 
-export interface N8NCredential {
-  name: string;
-  id: string;
-}
-
 interface SecondsInterval {
   secondsInterval: number | string;
 }

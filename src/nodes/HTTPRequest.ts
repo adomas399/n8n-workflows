@@ -1,4 +1,3 @@
-import { N8NCredential } from '../types';
 import WorkflowNode from './WorkflowNode';
 
 export default class HTTPRequest extends WorkflowNode {
@@ -14,7 +13,7 @@ export default class HTTPRequest extends WorkflowNode {
     bodyParameters?: { name: string; value: string }[];
     authentication?: 'predefinedCredentialType' | 'genericCredentialType';
     credentialType?: string;
-    credential?: N8NCredential;
+    credential_id?: string;
     connections?: string[];
     position?: [number, number];
   }) {
@@ -43,10 +42,10 @@ export default class HTTPRequest extends WorkflowNode {
           config.credentialType,
       },
       credential:
-        config.credentialType && config.credential
+        config.credentialType && config.credential_id
           ? ({
-              [config.credentialType]: config.credential,
-            } as Record<string, N8NCredential>)
+              [config.credentialType]: { id: config.credential_id },
+            } as Record<string, any>)
           : undefined,
       connections: config.connections && { main: config.connections },
       position: config.position,

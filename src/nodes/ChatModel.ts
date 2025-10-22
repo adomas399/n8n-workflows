@@ -1,4 +1,3 @@
-import { N8NCredential } from '../types';
 import WorkflowNode from './WorkflowNode';
 
 export default class ChatModel extends WorkflowNode {
@@ -21,7 +20,7 @@ export default class ChatModel extends WorkflowNode {
       | 'Ollama'
       | 'AwsBedrock';
     model: string;
-    credential: N8NCredential;
+    credential_id: string;
     connections: string[];
     options?: Record<string, any>;
     position?: [number, number];
@@ -52,7 +51,7 @@ export default class ChatModel extends WorkflowNode {
       type: `@n8n/n8n-nodes-langchain.lmChat${config.provider}`,
       version: config.version ?? 1,
       parameters: { model: `=${config.model}`, options: config.options },
-      credential: { [credentialKey]: config.credential },
+      credential: { [credentialKey]: { id: config.credential_id } },
       connections: config.connections && {
         ai_languageModel: config.connections,
       },
