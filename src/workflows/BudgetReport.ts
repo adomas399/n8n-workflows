@@ -3,7 +3,7 @@ import ChatModel from '../nodes/ChatModel';
 import MCPClient from '../nodes/MCPClient';
 import Resend from '../nodes/Resend';
 import ScheduleTrigger from '../nodes/ScheduleTrigger';
-import { LLMProvider, N8NCredential, ScheduleTriggerRule } from '../types';
+import { LLMProvider, ScheduleTriggerRule } from '../types';
 import Workflow from './Workflow';
 
 export default class BudgetReport extends Workflow {
@@ -13,17 +13,17 @@ export default class BudgetReport extends Workflow {
     prompt: string;
     chatModel: string;
     modelProvider: LLMProvider;
-    modelProviderCredential: N8NCredential;
+    modelProviderCredentialID: string;
     chatModelOptions?: Record<string, any>;
     MCPEndpoint: string;
     MCPAuthentication?: 'bearerAuth' | 'headerAuth';
-    MCPCredential?: N8NCredential;
+    MCPCredentialID?: string;
     includeMCPTools?: string[];
     excludeMCPTools?: string[];
     mailFrom?: string;
     mailTo: string;
     mailSubject?: string;
-    resendCredential: N8NCredential;
+    resendCredentialID: string;
   }) {
     super(config.name ?? 'Budget Report');
 
@@ -43,7 +43,7 @@ export default class BudgetReport extends Workflow {
       new ChatModel({
         model: config.chatModel,
         provider: config.modelProvider,
-        credential: config.modelProviderCredential,
+        credential_id: config.modelProviderCredentialID,
         options: config.chatModelOptions,
         connections: ['AI Agent'],
       })
@@ -52,7 +52,7 @@ export default class BudgetReport extends Workflow {
       new MCPClient({
         sseEndpoint: config.MCPEndpoint,
         authentication: config.MCPAuthentication,
-        credential: config.MCPCredential,
+        credential_id: config.MCPCredentialID,
         includeTools: config.includeMCPTools,
         excludeTools: config.excludeMCPTools,
         connections: ['AI Agent'],
@@ -66,7 +66,7 @@ export default class BudgetReport extends Workflow {
           config.mailSubject ??
           "Budget Report — {{ $('Schedule Trigger').item.json.Month }}{{ $('Schedule Trigger').item.json['Day of month'] }}",
         html: '{{ $json.output }}',
-        credential: config.resendCredential,
+        credential_id: config.resendCredentialID,
       })
     );
   }

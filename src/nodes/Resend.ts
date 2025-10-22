@@ -1,4 +1,3 @@
-import { N8NCredential } from '../types';
 import HTTPRequest from './HTTPRequest';
 
 export default class Resend extends HTTPRequest {
@@ -12,7 +11,7 @@ export default class Resend extends HTTPRequest {
     subject: string;
     text?: string;
     html?: string;
-    credential: N8NCredential;
+    credential_id: string;
     connections?: string[];
     position?: [number, number];
   }) {
@@ -49,7 +48,7 @@ export default class Resend extends HTTPRequest {
       ],
       authentication: 'genericCredentialType',
       credentialType: 'httpBearerAuth',
-      credential: config.credential,
+      credential_id: config.credential_id,
     });
   }
 }

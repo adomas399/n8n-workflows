@@ -1,3 +1,12 @@
+export type Weekday =
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'
+  | 'Sunday';
+
 export interface WorkflowJSON {
   name: string;
   nodes: Record<string, any>[];
@@ -17,11 +26,6 @@ export type LLMProvider =
   | 'AzureOpenAi'
   | 'Ollama'
   | 'AwsBedrock';
-
-export interface N8NCredential {
-  name: string;
-  id: string;
-}
 
 interface SecondsInterval {
   secondsInterval: number | string;
@@ -43,7 +47,7 @@ interface DaysInterval {
 
 interface WeeksInterval {
   weeksInterval: number | string;
-  triggerAtDay: string[] | number[] | string; // 0 = Sunday ... 6 = Saturday
+  triggerAtDay: Weekday[];
   triggerAtHour?: number | string;
   triggerAtMinute?: number | string;
 }

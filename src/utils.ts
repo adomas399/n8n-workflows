@@ -77,3 +77,9 @@ export async function safeJson(res: Response) {
   // Safe to parse now
   return res.json();
 }
+
+export function capitalizeFirst(str: string | undefined) {
+  if (!str) return;
+  str = str.toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

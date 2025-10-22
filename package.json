@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts",
+    "setup": "ts-node src/setup.ts",
     "start": "ts-node src/index.ts"
   },
   "keywords": [],
@@ -16,7 +16,9 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@inquirer/prompts": "^7.9.0",
     "dotenv": "^17.2.0",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "zod": "^4.1.12"
   }
 }

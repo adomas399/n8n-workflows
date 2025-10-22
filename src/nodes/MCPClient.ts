@@ -1,4 +1,3 @@
-import { N8NCredential } from '../types';
 import WorkflowNode from './WorkflowNode';
 
 export default class MCPClient extends WorkflowNode {
@@ -12,7 +11,7 @@ export default class MCPClient extends WorkflowNode {
     includeTools?: string[];
     excludeTools?: string[];
     authentication?: 'bearerAuth' | 'headerAuth';
-    credential?: N8NCredential;
+    credential_id?: string;
     connections: string[];
     position?: [number, number];
   }) {
@@ -33,14 +32,13 @@ export default class MCPClient extends WorkflowNode {
         authentication: config.authentication,
       },
       credential:
-        config.credential &&
-        (config.authentication == 'headerAuth'
-          ? ({
-              httpHeaderAuth: config.credential,
-            } as Record<string, N8NCredential>)
-          : ({
-              httpBearerAuth: config.credential,
-            } as Record<string, N8NCredential>)),
+        config.authentication == 'headerAuth'
+          ? {
+              httpHeaderAuth: { id: config.credential_id },
+            }
+          : {
+              httpBearerAuth: { id: config.credential_id },
+            },
       connections: config.connections && {
         ai_tool: config.connections,
       },
